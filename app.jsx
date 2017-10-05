@@ -22,10 +22,7 @@ class Model {
 		this.render = undefined;
 		this.players = players;
 		this.inputValue = "";
-		this.t = undefined;
-		this.state = {
-			time: 0,
-		}
+		
 	}
 	suscribe(render){
 		this.render = render;
@@ -76,42 +73,87 @@ class Model {
 		this.inputValue = e.target.value;
 		this.inform();
 	}
+	// timer(){
+	// 	this.time = this.time + 1;
+	// 	this.inform();
+	// }
+	// startTime(e){
+	// 	this.t = setInterval(
+	// 		() => {this.timer()}, 1000
+	//   )
+	// this.inform();
+	// }
+	// resetTime(e){
+	// 	clearInterval(this.t);
+	// 	this.time = 0;
+	// 	this.inform();
+	// }
+	// stopTime(e){
+	// 	clearInterval(this.t);
+	// 	this.inform();
+	// }
+}
+
+class Timer extends React.Component{
+
+
+	constructor(){
+		super()
+		this.t = undefined;
+		this.state = {
+			time : 0
+		}
+	}
 	timer(){
-		this.time = this.time + 1;
-		this.inform();
+		this.setState({
+			time : this.state.time + 1
+		});
 	}
-	startTime(e){
-		this.t = setInterval(
-			() => {this.timer()}, 1000
-	  )
-	this.inform();
+	startTime(){
+		this.t = setInterval(() => {this.timer()}, 1000);
 	}
-	resetTime(e){
+	resetTime(){
 		clearInterval(this.t);
 		this.time = 0;
-		this.inform();
+		this.setState({
+			time : 0,
+		});
 	}
-	stopTime(e){
-		clearInterval(this.t);
-		this.inform();
+	stopTime(){
+
+	}
+	render(){
+		return (
+			<div className="stopwatch">
+				<h2>STOPWATCH</h2>
+				<div className="stopwatch-time">
+					{this.state.time}
+				</div>
+				<div>
+					<button onClick={(e) => {this.startTime(e)}}><strong>START</strong></button>
+					<button onClick={(e) => {this.stopTime(e)}}><strong>STOP</strong></button>
+					<button onClick={(e) => {this.resetTime(e)}}><strong>RESET</strong></button>
+				</div>
+			</div>
+		);
 	}
 }
 
-const Timer = (props) => {
-	return (
-		<div className="stopwatch">
-			<h2>STOPWATCH</h2>
-			<div className="stopwatch-time">
-				{props.model.time}
-			</div>
-			<div>
-				<button onClick={(e) => {props.model.startTime()}}><strong>START</strong></button>
-				<button onClick={(e) => {props.model.stopTime()}}><strong>STOP</strong></button>
-				<button onClick={(e) => {props.model.resetTime()}}><strong>RESET</strong></button>
-			</div>
-		</div>
-	);
-}
+// const Timer = (props) => {
+// 	return (
+// 		<div className="stopwatch">
+// 			<h2>STOPWATCH</h2>
+// 			<div className="stopwatch-time">
+// 				{props.model.time}
+// 			</div>
+// 			<div>
+// 				<button onClick={(e) => {props.model.startTime()}}><strong>START</strong></button>
+// 				<button onClick={(e) => {props.model.stopTime()}}><strong>STOP</strong></button>
+// 				<button onClick={(e) => {props.model.resetTime()}}><strong>RESET</strong></button>
+// 			</div>
+// 		</div>
+// 	);
+// }
 
 const Header = (props) => {
   	return(
@@ -131,7 +173,7 @@ const Header = (props) => {
 				</table>
 			</div>
 			<h1><strong>{props.title}</strong></h1>
-			<Timer model={model}/>
+			<Timer/>
 		</div>
   	);
 } 
