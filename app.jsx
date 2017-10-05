@@ -22,7 +22,6 @@ class Model {
 		this.render = undefined;
 		this.players = players;
 		this.inputValue = "";
-		
 	}
 	suscribe(render){
 		this.render = render;
@@ -73,25 +72,6 @@ class Model {
 		this.inputValue = e.target.value;
 		this.inform();
 	}
-	// timer(){
-	// 	this.time = this.time + 1;
-	// 	this.inform();
-	// }
-	// startTime(e){
-	// 	this.t = setInterval(
-	// 		() => {this.timer()}, 1000
-	//   )
-	// this.inform();
-	// }
-	// resetTime(e){
-	// 	clearInterval(this.t);
-	// 	this.time = 0;
-	// 	this.inform();
-	// }
-	// stopTime(e){
-	// 	clearInterval(this.t);
-	// 	this.inform();
-	// }
 }
 
 class Timer extends React.Component{
@@ -120,7 +100,7 @@ class Timer extends React.Component{
 		});
 	}
 	stopTime(){
-
+		clearInterval(this.t);
 	}
 	render(){
 		return (
@@ -138,22 +118,6 @@ class Timer extends React.Component{
 		);
 	}
 }
-
-// const Timer = (props) => {
-// 	return (
-// 		<div className="stopwatch">
-// 			<h2>STOPWATCH</h2>
-// 			<div className="stopwatch-time">
-// 				{props.model.time}
-// 			</div>
-// 			<div>
-// 				<button onClick={(e) => {props.model.startTime()}}><strong>START</strong></button>
-// 				<button onClick={(e) => {props.model.stopTime()}}><strong>STOP</strong></button>
-// 				<button onClick={(e) => {props.model.resetTime()}}><strong>RESET</strong></button>
-// 			</div>
-// 		</div>
-// 	);
-// }
 
 const Header = (props) => {
   	return(
