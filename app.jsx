@@ -163,7 +163,7 @@ const PlayerList = (props) => {
 					<div className="counter-score">
 						{player.score}
 					</div>
-					<div className=" counter-action increment" id={index} onClick={e => {props.model.increment(e)}} >
+					<div className=" counter-action increment" id={index} onClick={e => {props.model.increment(e)}}>
 						+
 					</div>
 				</div>
