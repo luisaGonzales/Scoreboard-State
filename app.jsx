@@ -1,3 +1,4 @@
+'use strict';
 let players = [
 	{
 		name: "Jim Hoskins",
@@ -21,8 +22,10 @@ class Model {
 		this.render = undefined;
 		this.players = players;
 		this.inputValue = "";
-		this.time = 0;
 		this.t = undefined;
+		this.state = {
+			time: 0,
+		}
 	}
 	suscribe(render){
 		this.render = render;
@@ -94,6 +97,22 @@ class Model {
 	}
 }
 
+const Timer = (props) => {
+	return (
+		<div className="stopwatch">
+			<h2>STOPWATCH</h2>
+			<div className="stopwatch-time">
+				{props.model.time}
+			</div>
+			<div>
+				<button onClick={(e) => {props.model.startTime()}}><strong>START</strong></button>
+				<button onClick={(e) => {props.model.stopTime()}}><strong>STOP</strong></button>
+				<button onClick={(e) => {props.model.resetTime()}}><strong>RESET</strong></button>
+			</div>
+		</div>
+	);
+}
+
 const Header = (props) => {
   	return(
 		<div className="header">
@@ -112,17 +131,7 @@ const Header = (props) => {
 				</table>
 			</div>
 			<h1><strong>{props.title}</strong></h1>
-			<div className="stopwatch">
-				<h2>STOPWATCH</h2>
-				<div className="stopwatch-time">
-					{props.model.time}
-				</div>
-				<div>
-					<button onClick={(e) => {props.model.startTime()}}><strong>START</strong></button>
-					<button onClick={(e) => {props.model.stopTime()}}><strong>STOP</strong></button>
-					<button onClick={(e) => {props.model.resetTime()}}><strong>RESET</strong></button>
-				</div>
-			</div>
+			<Timer model={model}/>
 		</div>
   	);
 } 
