@@ -43,11 +43,13 @@ class Model {
 		this.inform();
 	}
 	addPlayer(player){
-		this.players.push({
-			name: player,
-			score: 0,
-			id: Utils.uuid()
-		});
+		if(player != ""){
+			this.players.push({
+				name: player,
+				score: 0,
+				id: Utils.uuid()
+			});
+		}
 		this.inputValue = "";
 		this.inform();
 	}
@@ -64,7 +66,7 @@ class Model {
 		this.inform();
 	}
 	delete(e){
-		let pos = e.target.id;
+		let pos = e.target.name - 1;
 		this.players.splice(pos, 1);
 		this.inform();
 	}
@@ -96,13 +98,12 @@ class Timer extends React.Component{
 	}
 	resetTime(){
 		clearInterval(this.t);
-		this.time = 0;
 		this.setState({
 			time : 0,
+			flag : true
 		});
 	}
 	stopTime(){
-		console.log(this.flag);
 		clearInterval(this.t);
 		this.setState({
 			flag: true
@@ -152,7 +153,7 @@ const PlayerList = (props) => {
 	const allPlayers = props.model.players.map((player, index)=>{
 		return (
 			<div className="player" key={player.id}>
-				<div className="player-name" id={index} onDoubleClick={e => {props.model.delete(e)}}>
+				<div className="player-name" name={index} onDoubleClick={e => {props.model.delete(e)}}>
 					<center><strong>{player.name}</strong></center> 
 				</div>
 				<div className="player-score counter">
