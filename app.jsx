@@ -43,12 +43,14 @@ class Model {
 		this.inform();
 	}
 	addPlayer(player){
-		if(player != ""){
+		if(player != "" || player == isNaN()){
 			this.players.push({
 				name: player,
 				score: 0,
 				id: Utils.uuid()
 			});
+		} else {
+			alert("Debes ingresar un jugador");
 		}
 		this.inputValue = "";
 		this.inform();
