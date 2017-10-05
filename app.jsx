@@ -75,22 +75,24 @@ class Model {
 }
 
 class Timer extends React.Component{
-
-
 	constructor(){
 		super()
 		this.t = undefined;
 		this.state = {
-			time : 0
+			time : 0,
+			flag : true
 		}
 	}
 	timer(){
-		this.setState({
-			time : this.state.time + 1
-		});
+		this.setState((prevState) => ({
+			time: prevState.time + 1
+		  }));
 	}
 	startTime(){
 		this.t = setInterval(() => {this.timer()}, 1000);
+		this.setState({
+			flag : false
+		})
 	}
 	resetTime(){
 		clearInterval(this.t);
@@ -100,7 +102,11 @@ class Timer extends React.Component{
 		});
 	}
 	stopTime(){
+		console.log(this.flag);
 		clearInterval(this.t);
+		this.setState({
+			flag: true
+		});
 	}
 	render(){
 		return (
@@ -110,8 +116,8 @@ class Timer extends React.Component{
 					{this.state.time}
 				</div>
 				<div>
-					<button onClick={(e) => {this.startTime(e)}}><strong>START</strong></button>
-					<button onClick={(e) => {this.stopTime(e)}}><strong>STOP</strong></button>
+					{this.state.flag && <button onClick={(e) => {this.startTime(e)}}><strong>START</strong></button>}
+					{!this.state.flag && <button onClick={(e) => {this.stopTime(e)}}><strong>STOP</strong></button>}
 					<button onClick={(e) => {this.resetTime(e)}}><strong>RESET</strong></button>
 				</div>
 			</div>
